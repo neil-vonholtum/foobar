@@ -7,7 +7,7 @@ R(0) = 1
 R(1) = 1
 R(2) = 2
 R(2n) = R(n) + R(n + 1) + n (for n > 1)
-R(2n + 1) = R(n 1) + R(n) + 1 (for n >= 1)
+R(2n + 1) = R(n - 1) + R(n) + 1 (for n >= 1)
 
 (At time 2, we realized the difficulty of a breeding program with only one zombit and so added an additional zombit.)
 
@@ -163,7 +163,7 @@ public class Answer {
       poptoret = zpopodd(nsubone).add(zpopeven(n));
     }
 
-    //Speed up experiment. When n > 2, r((n1)*2) is poptoret + (n1) since it requires the same value poptoret prior to adding one.
+    //Speed up experiment. When n > 2, r((n-1)*2) is poptoret + (n-1) since it requires the same value poptoret prior to adding one.
     
     if(n.compareTo(two) > 0){
 
