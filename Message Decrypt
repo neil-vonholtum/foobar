@@ -1,0 +1,29 @@
+//Author: Neil VonHoltum
+import java.util.Base64;
+
+public class Decrypt {
+
+  public static void main(String[] args) {
+  
+    byte[] messagebytes = Base64.getDecoder().decode("DUgdHQwPEQZdSUVTTFEIHA0OGFNZDkkGBgAaCg8PGglTVRROQgwfAgoLBQoIU1kOSQAPChkdGhtITE5VCQ
+                                                     cLCh4TCwcKAwlTWQ5JBAoEHwoYDQIJGgEJTl9JSwMBAgcMBxERCUJFTh4XDQwBGx9TVRROQhoNEApJRE9LE
+                                                     hpBSUVTTFEYBwZOSwk="),
+           keybytes = "vonholtu.neil".getBytes();
+    int i = 0;
+
+    while(i < 130){
+
+      for(int t = 0; t < 13; t++, i++){
+
+        messagebytes[i] = (byte)(messagebytes[i] ^ keybytes[t]);
+      }
+    }
+
+    for(int t = 0; i < 137; i++, t++){
+
+      messagebytes[i] = (byte)(messagebytes[i] ^ keybytes[t]);
+    }
+
+    System.out.println(new String(messagebytes));
+  }
+}
