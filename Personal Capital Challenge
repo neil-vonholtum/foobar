@@ -1,0 +1,40 @@
+import java.math.BigDecimal;
+import java.util.Arrays;
+import java.util.Random;
+
+//Author: Neil VonHoltum
+
+public class Answer {
+
+	public static void main(String[] args){
+		
+		BigDecimal initial = new BigDecimal("100000"), two = new BigDecimal("2");
+		BigDecimal [] projected = new BigDecimal[10000];
+		String [] means = {".059324", ".02689"}, sds = {".15675", ".063438"};
+		Random rand = new Random();
+		char[] porttype = {'A', 'I'};
+		
+		for(int t = 0; t < 2; t++){
+			
+			BigDecimal mean = new BigDecimal(means[t]);
+			BigDecimal sd = new BigDecimal(sds[t]);
+			
+			for(int i = 0; i < 10000; i++){
+				
+				BigDecimal val = initial;
+				
+				for(int y = 0; y < 20; y++){
+					
+					BigDecimal ret = BigDecimal.valueOf(rand.nextGaussian()).multiply(sd).add(mean);
+					val = val.add(val.multiply(ret));
+				}
+				
+				projected[i] = val;
+			}
+			
+			Arrays.sort(projected);
+			BigDecimal mty = projected[4999].add(projected[5000]).divide(two, 2, BigDecimal.ROUND_HALF_EVEN);
+			System.out.println(porttype[t] + "  Median 20th Year " + mty.toPlainString() + "  10% Best Case " + projected[9900].setScale(2, BigDecimal.ROUND_HALF_EVEN).toPlainString() + "  10% Worst Case " + projected[100].setScale(2, BigDecimal.ROUND_HALF_EVEN).toPlainString());
+		}
+	}
+}
